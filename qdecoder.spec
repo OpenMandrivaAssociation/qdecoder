@@ -24,6 +24,7 @@ For example, qDecoder covers following areas.
 
 %package devel
 Summary:	Devel package to qDecoder
+Group:		Development/C
 Requires:	qdecoder >= %{epoch}:%{version}
 
 %description devel
