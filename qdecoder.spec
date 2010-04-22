@@ -30,6 +30,14 @@ Requires:	qdecoder >= %{epoch}:%{version}
 %description devel
 Devel package to qDecoder
 
+%package examples
+Summary:	Examples to qDecoder
+Group:		Development/C
+Requires:	qdecoder >= %{epoch}:%{version}
+
+%description examples
+Example files to qDecoder
+
 %prep
 %setup -q -n qDecoder-%{version}
 
@@ -39,15 +47,42 @@ Devel package to qDecoder
 
 %make
 
+pushd examples
+	%make
+popd
+
 %install
 rm -rf %{buildroot}
 
 install -d %{buildroot}%{_libdir}
 install -d %{buildroot}%{_includedir}
 %makeinstall LIBDIR=%{buildroot}%{_libdir} HEADERDIR=%{buildroot}%{_includedir}
+install -d %{buildroot}%{_datadir}/%{name}
+cp examples/*.{cgi,conf,html,in} %{buildroot}%{_datadir}/%{name}
+cp -r examples/qDecoder-upload %{buildroot}%{_datadir}/%{name}
+install -d -m 755 %{buildroot}%{_webappconfdir}
+cat > %{buildroot}%{_webappconfdir}/%{name}.conf <<EOF
+Alias /%{name} %{_datadir}/%{name}
+<Directory %{_datadir}/%{name}>
+    Order deny,allow
+    Deny from all
+    Allow from 127.0.0.1
+    ErrorDocument 403 "Access denied per %{_webappconfdir}/%{name}.conf"
+</Directory>
+EOF
 
 %clean
 rm -rf %{buildroot}
+
+%post examples
+%if %mdkversion < 201010
+%_post_webapp
+%endif
+
+%postun examples
+%if %mdkversion < 201010
+%_postun_webapp
+%endif
 
 %files
 %defattr(-,root,root)
@@ -60,3 +95,9 @@ rm -rf %{buildroot}
 %doc examples doc/html
 %{_libdir}/libqDecoder.a
 %{_includedir}/qDecoder.h
+
+%files examples
+%defattr(-,root,root)
+%doc examples/*.c
+%config(noreplace) %{_webappconfdir}/%{name}.conf
+%{_datadir}/%{name}
