@@ -1,8 +1,8 @@
 Summary:	CGI library for C/C++ language
 Name:		qdecoder
-Version:	10.1.6
+Version:	11.0.0
 Release:	%mkrel 1
-Epoch:		8
+Epoch:		11
 License:	GPL
 Group:		Development/C
 URL:		http://www.qdecoder.org
@@ -58,8 +58,8 @@ install -d %{buildroot}%{_libdir}
 install -d %{buildroot}%{_includedir}
 %makeinstall LIBDIR=%{buildroot}%{_libdir} HEADERDIR=%{buildroot}%{_includedir}
 install -d %{buildroot}%{_datadir}/%{name}
-cp examples/*.{cgi,conf,html,in} %{buildroot}%{_datadir}/%{name}
-cp -r examples/qDecoder-upload %{buildroot}%{_datadir}/%{name}
+cp examples/*.{cgi,html,c} %{buildroot}%{_datadir}/%{name}
+#cp -r examples/qDecoder-upload %{buildroot}%{_datadir}/%{name}
 install -d -m 755 %{buildroot}%{_webappconfdir}
 cat > %{buildroot}%{_webappconfdir}/%{name}.conf <<EOF
 Alias /%{name} %{_datadir}/%{name}
@@ -86,15 +86,15 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS CHANGES COPYING
-%{_libdir}/libqDecoder.so.%{epoch}
-%{_libdir}/libqDecoder.so
+%doc COPYING
+%{_libdir}/libqdecoder.so.%{epoch}
+%{_libdir}/libqdecoder.so
 
 %files devel
 %defattr(-,root,root)
 %doc examples doc/html
-%{_libdir}/libqDecoder.a
-%{_includedir}/qDecoder.h
+%{_libdir}/libqdecoder.a
+%{_includedir}/qdecoder.h
 
 %files examples
 %defattr(-,root,root)
