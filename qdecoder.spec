@@ -101,3 +101,23 @@ rm -rf %{buildroot}
 %doc examples/*.c
 %config(noreplace) %{_webappconfdir}/%{name}.conf
 %{_datadir}/%{name}
+
+
+%changelog
+* Mon Feb 28 2011 Lonyai Gergely <aleph@mandriva.org> 11:11.0.0-1mdv2011.0
++ Revision: 641055
+- 11.0.0
+
+* Thu Nov 11 2010 Lonyai Gergely <aleph@mandriva.org> 8:10.1.6-1mdv2011.0
++ Revision: 595944
+- 10.1.6
+
+* Thu Apr 22 2010 Lonyai Gergely <aleph@mandriva.org> 8:10.1.2-3mdv2010.1
++ Revision: 537798
+- ILENT: bump
+- Mv examples to a separated package
+- Fix: the group in devel package
+- 10.1.2
+  initial version
+- create qdecoder
+
