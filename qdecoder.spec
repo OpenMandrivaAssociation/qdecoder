@@ -1,7 +1,7 @@
 Summary:	CGI library for C/C++ language
 Name:		qdecoder
 Version:	11.0.0
-Release:	%mkrel 1
+Release:	2
 Epoch:		11
 License:	GPL
 Group:		Development/C
@@ -11,7 +11,9 @@ BuildRequires:	%{_lib}mysql-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
-qDecoder is a development kit for C/C++ programming language. It was developed for the needs of building well formed CGI library at the beginning. But now it covers most of general topics we may face while we develop softwares.
+qDecoder is a development kit for C/C++ programming language. It was developed
+for the needs of building well formed CGI library at the beginning. But now it
+covers most of general topics we may face while we develop softwares.
 For example, qDecoder covers following areas.
 
     * Data Structures - Hash table(dynamic & static), Linked-list, Queue(Stack & FIFO), Obstack, ...
