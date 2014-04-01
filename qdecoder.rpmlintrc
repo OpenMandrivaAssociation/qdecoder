@@ -1,0 +1,2 @@
+# These are examples
+addFilter("devel-file-in-non-devel-package")

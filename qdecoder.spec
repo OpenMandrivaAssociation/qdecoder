@@ -1,13 +1,17 @@
+%define major 12
+%define libname %mklibname %{name} %{major}
+%define devname %mklibname %{name} -d
+
 Summary:	CGI library for C/C++ language
 Name:		qdecoder
-Version:	11.0.0
-Release:	2
+Version:	12.0.5
+Release:	1
 Epoch:		11
-License:	GPL
+License:	BSD
 Group:		Development/C
-URL:		http://www.qdecoder.org
-Source0:	ftp://ftp.qdecoder.org/pub/qDecoder/qDecoder-%{version}.tar.gz
-BuildRequires:	%{_lib}mysql-devel
+Url:		http://www.qdecoder.org
+Source0:	https://github.com/wolkykim/qdecoder/archive/%{name}-r%{version}.tar.gz
+Source10:	%{name}.rpmlintrc
 
 %description
 qDecoder is a development kit for C/C++ programming language. It was developed
@@ -28,29 +32,60 @@ For example, qDecoder covers following areas.
       Rotating file logger, Server side includes, ...
     * General topics - String APIs, File APIs, ...
 
-%package devel
-Summary:	Devel package to qDecoder
-Group:		Development/C
-Requires:	qdecoder >= %{epoch}:%{version}
+#----------------------------------------------------------------------------
 
-%description devel
-Devel package to qDecoder
+%package -n %{libname}
+Summary:	Development files for qDecoder
+Group:		Development/C
+Conflicts:	%{name} < 11:12.0.5
+Obsoletes:	%{name} < 11:12.0.5
+
+%description -n %{libname}
+Development files for qDecoder.
+
+%files -n %{libname}
+%{_libdir}/libqdecoder.so.%{major}
+
+#----------------------------------------------------------------------------
+
+%package -n %{devname}
+Summary:	Development files for qDecoder
+Group:		Development/C
+Requires:	%{libname} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
+Conflicts:	%{name} < 11:12.0.5
+Obsoletes:	%{name}-devel < 11:12.0.5
+
+%description -n %{devname}
+Development files for qDecoder.
+
+%files -n %{devname}
+%doc doc/html COPYING
+%{_libdir}/libqdecoder.so
+%{_libdir}/libqdecoder.a
+%{_includedir}/qdecoder.h
+
+#----------------------------------------------------------------------------
 
 %package examples
 Summary:	Examples to qDecoder
 Group:		Development/C
-Requires:	qdecoder >= %{epoch}:%{version}
 
 %description examples
-Example files to qDecoder
+Example files to qDecoder.
+
+%files examples
+%doc examples/*.c
+%config(noreplace) %{_webappconfdir}/%{name}.conf
+%{_libdir}/%{name}
+
+#----------------------------------------------------------------------------
 
 %prep
-%setup -q -n qDecoder-%{version}
+%setup -q -n %{name}-r%{version}
 
 %build
-%configure2_5x \
-	--enable-mysql=%{_includedir}/mysql
-
+%configure2_5x
 %make
 
 pushd examples
@@ -61,56 +96,17 @@ popd
 install -d %{buildroot}%{_libdir}
 install -d %{buildroot}%{_includedir}
 %makeinstall LIBDIR=%{buildroot}%{_libdir} HEADERDIR=%{buildroot}%{_includedir}
-install -d %{buildroot}%{_datadir}/%{name}
-cp examples/*.{cgi,html,c} %{buildroot}%{_datadir}/%{name}
-#cp -r examples/qDecoder-upload %{buildroot}%{_datadir}/%{name}
+
+install -d %{buildroot}%{_libdir}/%{name}
+cp examples/*.{cgi,html,c} %{buildroot}%{_libdir}/%{name}
 install -d -m 755 %{buildroot}%{_webappconfdir}
 cat > %{buildroot}%{_webappconfdir}/%{name}.conf <<EOF
-Alias /%{name} %{_datadir}/%{name}
-<Directory %{_datadir}/%{name}>
+Alias /%{name} %{_libdir}/%{name}
+<Directory %{_libdir}/%{name}>
     Order deny,allow
     Deny from all
     Allow from 127.0.0.1
     ErrorDocument 403 "Access denied per %{_webappconfdir}/%{name}.conf"
 </Directory>
 EOF
-
-%clean
-
-%files
-%defattr(-,root,root)
-%doc COPYING
-%{_libdir}/libqdecoder.so.%{epoch}
-%{_libdir}/libqdecoder.so
-
-%files devel
-%defattr(-,root,root)
-%doc examples doc/html
-%{_libdir}/libqdecoder.a
-%{_includedir}/qdecoder.h
-
-%files examples
-%defattr(-,root,root)
-%doc examples/*.c
-%config(noreplace) %{_webappconfdir}/%{name}.conf
-%{_datadir}/%{name}
-
-
-%changelog
-* Mon Feb 28 2011 Lonyai Gergely <aleph@mandriva.org> 11:11.0.0-1mdv2011.0
-+ Revision: 641055
-- 11.0.0
-
-* Thu Nov 11 2010 Lonyai Gergely <aleph@mandriva.org> 8:10.1.6-1mdv2011.0
-+ Revision: 595944
-- 10.1.6
-
-* Thu Apr 22 2010 Lonyai Gergely <aleph@mandriva.org> 8:10.1.2-3mdv2010.1
-+ Revision: 537798
-- ILENT: bump
-- Mv examples to a separated package
-- Fix: the group in devel package
-- 10.1.2
-  initial version
-- create qdecoder
 
