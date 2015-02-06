@@ -5,7 +5,7 @@
 Summary:	CGI library for C/C++ language
 Name:		qdecoder
 Version:	12.0.5
-Release:	1
+Release:	2
 Epoch:		11
 License:	BSD
 Group:		Development/C
