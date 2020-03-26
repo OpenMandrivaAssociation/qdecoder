@@ -76,8 +76,8 @@ Example files to qDecoder.
 
 %files examples
 %doc examples/*.c
-%config(noreplace) %{_webappconfdir}/%{name}.conf
-%{_libdir}/%{name}
+#%config(noreplace) %{_webappconfdir}/%{name}.conf
+#%{_libdir}/%{name}
 
 #----------------------------------------------------------------------------
 
