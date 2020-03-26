@@ -44,7 +44,7 @@ Obsoletes:	%{name} < 11:12.0.5
 Development files for qDecoder.
 
 %files -n %{libname}
-%{_libdir}/libqdecoder.so.%{major}
+#%{_libdir}/libqdecoder.so.%{major}
 
 #----------------------------------------------------------------------------
 
