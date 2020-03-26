@@ -44,7 +44,7 @@ Obsoletes:	%{name} < 11:12.0.5
 Development files for qDecoder.
 
 %files -n %{libname}
-#%{_libdir}/libqdecoder.so.%{major}
+%{_libdir}/libqdecoder.so.%{major}
 
 #----------------------------------------------------------------------------
 
@@ -61,23 +61,10 @@ Development files for qDecoder.
 
 %files -n %{devname}
 %doc doc/html COPYING
-#%{_libdir}/libqdecoder.so
-#%{_libdir}/libqdecoder.a
-#%{_includedir}/qdecoder.h
-
-#----------------------------------------------------------------------------
-
-%package examples
-Summary:	Examples to qDecoder
-Group:		Development/C
-
-%description examples
-Example files to qDecoder.
-
-%files examples
-%doc examples/*.c
-%config(noreplace) %{_webappconfdir}/%{name}.conf
-%{_libdir}/%{name}
+%{_libdir}/libqdecoder.so
+%{_libdir}/libqdecoder.a
+%{_includedir}/qdecoder.h
+%{_libdir}/pkgconfig/qdecoder.pc
 
 #----------------------------------------------------------------------------
 
@@ -90,25 +77,5 @@ export CXX=g++
 %configure
 %make_build
 
-pushd examples
-	%make
-popd
-
 %install
-install -d %{buildroot}%{_libdir}
-install -d %{buildroot}%{_includedir}
-%make_install LIBDIR=%{buildroot}%{_libdir} HEADERDIR=%{buildroot}%{_includedir}
-
-install -d %{buildroot}%{_libdir}/%{name}
-cp examples/*.{cgi,html,c} %{buildroot}%{_libdir}/%{name}
-install -d -m 755 %{buildroot}%{_webappconfdir}
-cat > %{buildroot}%{_webappconfdir}/%{name}.conf <<EOF
-Alias /%{name} %{_libdir}/%{name}
-<Directory %{_libdir}/%{name}>
-    Order deny,allow
-    Deny from all
-    Allow from 127.0.0.1
-    ErrorDocument 403 "Access denied per %{_webappconfdir}/%{name}.conf"
-</Directory>
-EOF
-
+%make_install
