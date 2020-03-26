@@ -95,20 +95,4 @@ pushd examples
 popd
 
 %install
-install -d %{buildroot}%{_libdir}
-install -d %{buildroot}%{_includedir}
-%make_install LIBDIR=%{buildroot}%{_libdir} HEADERDIR=%{buildroot}%{_includedir}
-
-install -d %{buildroot}%{_libdir}/%{name}
-cp examples/*.{cgi,html,c} %{buildroot}%{_libdir}/%{name}
-install -d -m 755 %{buildroot}%{_webappconfdir}
-cat > %{buildroot}%{_webappconfdir}/%{name}.conf <<EOF
-Alias /%{name} %{_libdir}/%{name}
-<Directory %{_libdir}/%{name}>
-    Order deny,allow
-    Deny from all
-    Allow from 127.0.0.1
-    ErrorDocument 403 "Access denied per %{_webappconfdir}/%{name}.conf"
-</Directory>
-EOF
-
+%make_install
