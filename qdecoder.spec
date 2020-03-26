@@ -85,6 +85,8 @@ Example files to qDecoder.
 %setup -q -n %{name}-%{version}
 
 %build
+export CC=gcc
+export CXX=g++
 %configure
 %make_build
 
