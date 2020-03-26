@@ -44,7 +44,7 @@ Obsoletes:	%{name} < 11:12.0.5
 Development files for qDecoder.
 
 %files -n %{libname}
-#%{_libdir}/libqdecoder.so.%{major}
+%{_libdir}/libqdecoder.so.%{major}
 
 #----------------------------------------------------------------------------
 
@@ -61,23 +61,10 @@ Development files for qDecoder.
 
 %files -n %{devname}
 %doc doc/html COPYING
-#%{_libdir}/libqdecoder.so
-#%{_libdir}/libqdecoder.a
-#%{_includedir}/qdecoder.h
-
-#----------------------------------------------------------------------------
-
-%package examples
-Summary:	Examples to qDecoder
-Group:		Development/C
-
-%description examples
-Example files to qDecoder.
-
-%files examples
-%doc examples/*.c
-#%config(noreplace) %{_webappconfdir}/%{name}.conf
-#%{_libdir}/%{name}
+%{_libdir}/libqdecoder.so
+%{_libdir}/libqdecoder.a
+%{_includedir}/qdecoder.h
+%{_libdir}/pkgconfig/qdecoder.pc
 
 #----------------------------------------------------------------------------
 
@@ -89,10 +76,6 @@ export CC=gcc
 export CXX=g++
 %configure
 %make_build
-
-pushd examples
-	%make
-popd
 
 %install
 %make_install
