@@ -4,13 +4,13 @@
 
 Summary:	CGI library for C/C++ language
 Name:		qdecoder
-Version:	12.0.5
-Release:	2
+Version:	12.0.7
+Release:	1
 Epoch:		11
 License:	BSD
 Group:		Development/C
 Url:		http://www.qdecoder.org
-Source0:	https://github.com/wolkykim/qdecoder/archive/%{name}-r%{version}.tar.gz
+Source0:	https://github.com/wolkykim/qdecoder/archive/%{name}-%{version}.tar.gz
 Source10:	%{name}.rpmlintrc
 
 %description
@@ -85,8 +85,8 @@ Example files to qDecoder.
 %setup -q -n %{name}-r%{version}
 
 %build
-%configure2_5x
-%make
+%configure
+%make_build
 
 pushd examples
 	%make
@@ -95,7 +95,7 @@ popd
 %install
 install -d %{buildroot}%{_libdir}
 install -d %{buildroot}%{_includedir}
-%makeinstall LIBDIR=%{buildroot}%{_libdir} HEADERDIR=%{buildroot}%{_includedir}
+%make_install LIBDIR=%{buildroot}%{_libdir} HEADERDIR=%{buildroot}%{_includedir}
 
 install -d %{buildroot}%{_libdir}/%{name}
 cp examples/*.{cgi,html,c} %{buildroot}%{_libdir}/%{name}
