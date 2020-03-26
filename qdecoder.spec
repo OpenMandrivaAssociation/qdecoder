@@ -82,7 +82,7 @@ Example files to qDecoder.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}-r%{version}
+%setup -q -n %{name}-%{version}
 
 %build
 %configure
