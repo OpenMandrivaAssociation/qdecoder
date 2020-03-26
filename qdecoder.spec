@@ -61,9 +61,9 @@ Development files for qDecoder.
 
 %files -n %{devname}
 %doc doc/html COPYING
-%{_libdir}/libqdecoder.so
-%{_libdir}/libqdecoder.a
-%{_includedir}/qdecoder.h
+#%{_libdir}/libqdecoder.so
+#%{_libdir}/libqdecoder.a
+#%{_includedir}/qdecoder.h
 
 #----------------------------------------------------------------------------
 
