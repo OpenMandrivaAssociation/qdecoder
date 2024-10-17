@@ -9,7 +9,7 @@ Release:	1
 Epoch:		11
 License:	BSD
 Group:		Development/C
-Url:		http://www.qdecoder.org
+Url:		https://www.qdecoder.org
 Source0:	https://github.com/wolkykim/qdecoder/archive/%{name}-%{version}.tar.gz
 Source10:	%{name}.rpmlintrc
 
