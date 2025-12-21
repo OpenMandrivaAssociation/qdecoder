@@ -13,6 +13,11 @@ Url:		https://www.qdecoder.org
 Source0:	https://github.com/wolkykim/qdecoder/archive/%{name}-%{version}.tar.gz
 Source10:	%{name}.rpmlintrc
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 %description
 qDecoder is a development kit for C/C++ programming language. It was developed
 for the needs of building well formed CGI library at the beginning. But now it
